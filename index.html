@@ -1,0 +1,2704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shaarby Sajina Sivakumar | Geomatics Portfolio</title>
+
+<style>
+:root {
+    --light-bg: #cae4c5;
+    --green: #659473;
+    --dark-green: #2f5d3a;
+    --cream: #f7f7f0;
+    --white: #ffffff;
+    --text: #17231a;
+    --muted: #58705e;
+    --card: #ffffff;
+    --border: #b5cfb2;
+    --shadow: rgba(47, 93, 58, 0.15);
+}
+
+body.dark-mode {
+    --light-bg: #111812;
+    --green: #456b50;
+    --dark-green: #9ac5a2;
+    --cream: #182019;
+    --white: #202a22;
+    --text: #e7f1e8;
+    --muted: #b1c5b5;
+    --card: #202a22;
+    --border: #38503e;
+    --shadow: rgba(0, 0, 0, 0.35);
+}
+
+* {
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    background-color: var(--light-bg);
+    color: var(--text);
+    font-family: monospace;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+a {
+    color: inherit;
+}
+
+button {
+    font-family: monospace;
+}
+
+/* =====================================================
+   HOMEPAGE
+===================================================== */
+
+header {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px 20px;
+    background-color: var(--light-bg);
+}
+
+.intro {
+    max-width: 900px;
+}
+
+.intro h1 {
+    margin: 0;
+    font-size: clamp(40px, 7vw, 75px);
+    line-height: 1.1;
+    color: var(--dark-green);
+}
+
+.intro h2 {
+    margin: 20px 0 10px;
+    font-size: clamp(18px, 3vw, 28px);
+    font-weight: normal;
+}
+
+.intro p {
+    max-width: 600px;
+    margin: 0 auto 35px;
+    color: var(--muted);
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+/* =====================================================
+   ICON NAVIGATION
+===================================================== */
+
+.nav-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 55px;
+    width: 100%;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
+
+.nav-button {
+    width: 105px;
+    min-height: 125px;
+    padding: 8px;
+    border: none;
+    background: transparent;
+    color: var(--dark-green);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 12px;
+    transition:
+        transform 0.2s ease,
+        background-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.button-icon {
+    width: 68px;
+    height: 68px;
+    object-fit: contain;
+    display: block;
+    pointer-events: none;
+    transition:
+        transform 0.25s ease,
+        opacity 0.2s ease,
+        filter 0.25s ease;
+}
+
+body.dark-mode .button-icon {
+    filter: brightness(0) invert(1);
+}
+
+.nav-button span {
+    display: block;
+    color: var(--dark-green);
+    line-height: 1.2;
+    text-align: center;
+}
+
+.nav-button:hover {
+    transform: translateY(-6px);
+    background-color: rgba(255, 255, 255, 0.18);
+    box-shadow: 0 8px 20px var(--shadow);
+}
+
+.nav-button:hover .button-icon,
+.nav-button.active .button-icon {
+    transform: scale(1.08);
+}
+
+.nav-button.active {
+    background-color: rgba(255, 255, 255, 0.22);
+    box-shadow: 0 8px 20px var(--shadow);
+}
+
+/* =====================================================
+   DARK / LIGHT MODE BUTTON
+===================================================== */
+
+.theme-toggle {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    width: 75px;
+    height: 75px;
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.25s ease;
+}
+
+.theme-toggle img {
+    width: 75px;
+    height: 75px;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    display: block;
+    pointer-events: none;
+    transition:
+        transform 0.25s ease,
+        opacity 0.2s ease,
+        filter 0.25s ease;
+}
+
+body.dark-mode .theme-toggle img {
+    filter: brightness(0) invert(1);
+}
+
+.theme-toggle:hover {
+    transform: scale(1.05);
+}
+
+.theme-toggle:hover img {
+    transform: rotate(10deg);
+}
+
+/* =====================================================
+   POPUP OVERLAY
+===================================================== */
+
+.window-overlay {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 120px;
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: rgba(0, 0, 0, 0.12);
+    z-index: 400;
+    pointer-events: none;
+}
+
+.window-overlay.active {
+    display: flex;
+}
+
+/* =====================================================
+   POPUP WINDOW
+===================================================== */
+
+.portfolio-window {
+    display: none;
+    position: absolute;
+    left: 50%;
+    top: 120px;
+    transform: translateX(-50%);
+    width: min(700px, 90vw);
+    max-height: 80vh;
+    overflow: hidden;
+    background-color: var(--card);
+    color: var(--text);
+    border: 2px solid var(--dark-green);
+    border-radius: 10px;
+    box-shadow: 0 25px 70px rgba(0, 0, 0, 0.4);
+    animation: windowOpen 0.25s ease;
+    pointer-events: auto;
+}
+
+.portfolio-window.active {
+    display: block;
+}
+
+.map-window {
+    width: min(1000px, 94vw);
+}
+
+.skills-window {
+    width: min(850px, 92vw);
+}
+
+@keyframes windowOpen {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) scale(0.92) translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(-50%) scale(1) translateY(0);
+    }
+}
+
+/* =====================================================
+   WINDOW HEADER
+===================================================== */
+
+.window-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 15px;
+    background-color: var(--green);
+    color: white;
+    font-weight: bold;
+    border-bottom: 2px solid var(--dark-green);
+    cursor: grab;
+    user-select: none;
+    touch-action: none;
+}
+
+.window-header:active {
+    cursor: grabbing;
+}
+
+.window-header span {
+    font-size: 16px;
+}
+
+.window-header button {
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 5px;
+    background-color: transparent;
+    color: white;
+    font-size: 25px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.window-header button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* =====================================================
+   WINDOW CONTENT
+===================================================== */
+
+.window-content {
+    max-height: calc(80vh - 55px);
+    overflow-y: auto;
+    padding: 30px;
+}
+
+.window-content h2 {
+    margin-top: 0;
+    color: var(--dark-green);
+}
+
+.window-content p {
+    line-height: 1.7;
+}
+
+/* =====================================================
+   ABOUT
+===================================================== */
+
+.about-text {
+    background-color: var(--cream);
+    padding: 25px;
+    border-left: 4px solid var(--green);
+    border-radius: 5px;
+}
+
+/* =====================================================
+   MAP SHOWCASE
+===================================================== */
+
+.map-window .window-content {
+    padding: 20px;
+}
+
+.project-navigation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 20px auto 25px;
+}
+
+.project-button {
+    border: 2px solid var(--border);
+    background-color: var(--cream);
+    color: var(--dark-green);
+    padding: 10px 15px;
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.project-button:hover {
+    transform: translateY(-2px);
+    border-color: var(--green);
+}
+
+.project-button.active {
+    background-color: var(--green);
+    color: white;
+    border-color: var(--green);
+}
+
+/* =====================================================
+   PROJECT SLIDER
+===================================================== */
+
+.project-slider {
+    display: none;
+}
+
+.project-slider.active {
+    display: block;
+}
+
+.project-title {
+    text-align: center;
+    color: var(--dark-green);
+    margin: 0 0 8px;
+    font-size: 24px;
+}
+
+.project-description {
+    text-align: center;
+    color: var(--muted);
+    margin: 0 auto 20px;
+}
+
+/* =====================================================
+   IMAGE SLIDER
+===================================================== */
+
+.image-slider-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    width: 100%;
+}
+
+.image-slider {
+    position: relative;
+    flex: 1;
+    min-width: 0;
+    height: 550px;
+    overflow: hidden;
+    border-radius: 10px;
+    background-color: #e6e6e6;
+    border: 1px solid var(--border);
+}
+
+.project-slides {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.5s ease-in-out;
+}
+
+.project-slide {
+    min-width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #e6e6e6;
+}
+
+.project-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+/* =====================================================
+   IMAGE ARROWS
+===================================================== */
+
+.image-prev,
+.image-next {
+    flex-shrink: 0;
+    width: 48px;
+    height: 65px;
+    background-color: var(--green);
+    color: white;
+    border: 2px solid var(--dark-green);
+    cursor: pointer;
+    font-size: 25px;
+    font-weight: bold;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition:
+        background-color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.image-prev:hover,
+.image-next:hover {
+    background-color: var(--dark-green);
+    transform: scale(1.05);
+    box-shadow: 0 6px 15px var(--shadow);
+}
+
+.image-prev:active,
+.image-next:active {
+    transform: scale(0.97);
+}
+
+/* =====================================================
+   IMAGE DOTS
+===================================================== */
+
+.image-pagination-dots {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.image-dot {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin: 5px;
+    background-color: #bbb;
+    border-radius: 50%;
+    cursor: pointer;
+    transition:
+        background-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.image-dot:hover {
+    transform: scale(1.2);
+}
+
+.image-dot.active {
+    background-color: var(--green);
+}
+
+.project-counter {
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+    margin-top: 10px;
+}
+
+/* =====================================================
+   SKILLS
+===================================================== */
+
+.skills-window .window-content {
+    max-height: calc(80vh - 55px);
+    overflow-y: auto;
+    padding: 30px;
+}
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 15px;
+}
+
+.skill {
+    background-color: var(--cream);
+    border: 2px solid var(--border);
+    padding: 25px;
+    border-radius: 10px;
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.skill:hover {
+    transform: translateY(-5px);
+    border-color: var(--green);
+    box-shadow: 0 8px 20px var(--shadow);
+}
+
+.skill h3 {
+    margin-top: 0;
+    margin-bottom: 12px;
+    color: var(--dark-green);
+    line-height: 1.3;
+}
+
+.skill p {
+    margin-bottom: 0;
+    color: var(--muted);
+    line-height: 1.6;
+}
+
+/* =====================================================
+   SKILLS CATEGORY LABELS
+===================================================== */
+
+.skill-category {
+    grid-column: 1 / -1;
+    margin-top: 8px;
+    margin-bottom: -2px;
+    padding: 10px 15px;
+    background-color: var(--green);
+    color: white;
+    border-radius: 7px;
+    border: 2px solid var(--dark-green);
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.skill-category:first-child {
+    margin-top: 0;
+}
+
+/* =====================================================
+   CONTACT
+===================================================== */
+
+.contact-item {
+    margin: 20px 0;
+    padding: 15px;
+    border-left: 4px solid var(--green);
+    background-color: var(--cream);
+    border-radius: 4px;
+}
+
+.contact-item strong {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--dark-green);
+}
+
+.contact-item a {
+    color: var(--text);
+    text-decoration: none;
+    display: inline-block;
+    word-break: break-word;
+    cursor: pointer;
+}
+
+.contact-item a:hover {
+    text-decoration: underline;
+    color: var(--dark-green);
+}
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+footer {
+    text-align: center;
+    padding: 30px 20px;
+    background-color: var(--green);
+    color: white;
+}
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 700px) {
+
+    .nav-buttons {
+        gap: 25px;
+    }
+
+    .portfolio-window {
+        width: 90vw;
+        max-height: 85vh;
+    }
+
+    .skills-window {
+        width: 92vw;
+    }
+
+    .window-overlay {
+        padding-top: 100px;
+    }
+
+    .portfolio-window {
+        top: 100px;
+    }
+
+    .window-content {
+        padding: 20px;
+    }
+
+    .skills-window .window-content {
+        padding: 20px;
+    }
+
+    .image-slider {
+        height: 400px;
+    }
+
+    .skills-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .skill-category {
+        grid-column: 1;
+    }
+
+    .project-navigation {
+        gap: 7px;
+    }
+
+    .project-button {
+        padding: 8px 10px;
+        font-size: 12px;
+    }
+
+    .image-slider-wrapper {
+        gap: 8px;
+    }
+
+    .image-prev,
+    .image-next {
+        width: 40px;
+        height: 55px;
+        font-size: 20px;
+    }
+
+    .theme-toggle {
+        width: 45px;
+        height: 45px;
+        top: 10px;
+        left: 10px;
+    }
+
+    .theme-toggle img {
+        width: 45px;
+        height: 45px;
+    }
+}
+
+@media (max-width: 450px) {
+
+    .nav-buttons {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    .nav-button {
+        width: 100%;
+    }
+
+    .button-icon {
+        width: 68px;
+        height: 68px;
+    }
+
+    .theme-toggle {
+        width: 30px;
+        height: 30px;
+        top: 8px;
+        left: 8px;
+    }
+
+    .theme-toggle img {
+        width: 30px;
+        height: 30px;
+    }
+
+    .portfolio-window {
+        width: 94vw;
+        top: 80px;
+    }
+
+    .skills-window {
+        width: 94vw;
+    }
+
+    .window-overlay {
+        padding-top: 80px;
+    }
+
+    .image-slider {
+        height: 300px;
+    }
+
+    .project-navigation {
+        margin-top: 15px;
+        margin-bottom: 20px;
+    }
+
+    .project-button {
+        flex: 1 1 40%;
+        min-width: 0;
+    }
+
+    .image-slider-wrapper {
+        gap: 5px;
+    }
+
+    .image-prev,
+    .image-next {
+        width: 34px;
+        height: 50px;
+        font-size: 18px;
+        border-radius: 6px;
+    }
+
+    .project-title {
+        font-size: 20px;
+    }
+
+    .skill {
+        padding: 20px;
+    }
+
+    .skill-category {
+        font-size: 14px;
+        padding: 9px 12px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- =====================================================
+     DARK / LIGHT MODE BUTTON
+===================================================== -->
+
+<button
+    class="theme-toggle"
+    id="themeToggle"
+    onclick="toggleDarkMode()"
+    aria-label="Switch to dark mode"
+>
+    <img
+        id="themeIcon"
+        src="icons/night_icon.png"
+        alt="Switch to dark mode"
+    >
+</button>
+
+<!-- =====================================================
+     HOMEPAGE
+===================================================== -->
+
+<header id="home">
+
+    <div class="intro">
+
+        <h1>
+            Geomatics Portfolio
+        </h1>
+
+        <h2>
+            
+        </h2>
+
+        <p>
+            Created by: Shaarby Sajina Sivakumar
+        </p>
+
+        <nav class="nav-buttons">
+
+            <button
+                class="nav-button"
+                id="aboutButton"
+                onclick="openWindow('aboutWindow', this)"
+                aria-label="Open About"
+            >
+                <img
+                    class="button-icon"
+                    src="icons/about.png"
+                    alt="About"
+                >
+
+                <span>
+                    About
+                </span>
+            </button>
+
+            <button
+                class="nav-button"
+                id="mapButton"
+                onclick="openWindow('mapWindow', this)"
+                aria-label="Open Map Showcase"
+            >
+                <img
+                    class="button-icon"
+                    src="icons/map.png"
+                    alt="Map Showcase"
+                >
+
+                <span>
+                    Map Showcase
+                </span>
+            </button>
+
+            <button
+                class="nav-button"
+                id="skillsButton"
+                onclick="openWindow('skillsWindow', this)"
+                aria-label="Open Skills"
+            >
+                <img
+                    class="button-icon"
+                    src="icons/skills.png"
+                    alt="Skills"
+                >
+
+                <span>
+                    Skills
+                </span>
+            </button>
+
+            <button
+                class="nav-button"
+                id="contactButton"
+                onclick="openWindow('contactWindow', this)"
+                aria-label="Open Contact"
+            >
+                <img
+                    class="button-icon"
+                    src="icons/closed_letter_icon.png"
+                    alt="Contact"
+                >
+
+                <span>
+                    Contact
+                </span>
+            </button>
+
+        </nav>
+
+    </div>
+
+</header>
+
+<!-- =====================================================
+     POPUP WINDOWS
+===================================================== -->
+
+<div
+    class="window-overlay"
+    id="windowOverlay"
+    onclick="closeWindowOutside(event)"
+>
+
+    <!-- ABOUT WINDOW -->
+
+    <div
+        class="portfolio-window"
+        id="aboutWindow"
+    >
+
+        <div
+            class="window-header"
+            onmousedown="startDragging(event, this.parentElement)"
+            ontouchstart="startDragging(event, this.parentElement)"
+        >
+
+            <span>
+                About
+            </span>
+
+            <button
+                onclick="closeWindow('aboutWindow')"
+                aria-label="Close About window"
+            >
+                ×
+            </button>
+
+        </div>
+
+        <div class="window-content">
+
+            <h2>
+                About Me
+            </h2>
+
+            <div class="about-text">
+
+                <p>
+                    Hello, I'm Shaarby!
+                </p>
+
+                <p>
+                    I am a third year Geomatics student at Carleton University.  
+                </p>
+
+                <p>
+                    My passion is creating interesting maps that are functional, 
+                    informative and aesthetically pleasing, while also being 
+                    accessible and easy to understand. 
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- =================================================
+         MAP SHOWCASE WINDOW
+    ================================================= -->
+
+    <div
+        class="portfolio-window map-window"
+        id="mapWindow"
+    >
+
+        <div
+            class="window-header"
+            onmousedown="startDragging(event, this.parentElement)"
+            ontouchstart="startDragging(event, this.parentElement)"
+        >
+
+            <span>
+                Map Showcase
+            </span>
+
+            <button
+                onclick="closeWindow('mapWindow')"
+                aria-label="Close Map Showcase window"
+            >
+                ×
+            </button>
+
+        </div>
+
+        <div class="window-content">
+
+            <div class="project-navigation">
+
+                <button
+                    class="project-button active"
+                    id="projectButton0"
+                    onclick="showProject(0)"
+                >
+                    ENRoads
+                </button>
+
+                <button
+                    class="project-button"
+                    id="projectButton1"
+                    onclick="showProject(1)"
+                >
+                    EelTrace
+                </button>
+
+                <button
+                    class="project-button"
+                    id="projectButton2"
+                    onclick="showProject(2)"
+                >
+                    JapanDEM
+                </button>
+
+                <button
+                    class="project-button"
+                    id="projectButton3"
+                    onclick="showProject(3)"
+                >
+                    Blueberry ModelBuilder
+                </button>
+
+            </div>
+
+            <!-- PROJECT 1 -->
+
+            <div
+                class="project-slider active"
+                id="project0"
+            >
+
+                <h3 class="project-title">
+                    ENRoads
+                </h3>
+
+                <p class="project-description">
+                    Weighted Distance Analysis
+                </p>
+
+                <div class="image-slider-wrapper">
+
+                    <button
+                        class="image-prev"
+                        onclick="previousProjectImage(0)"
+                        aria-label="Previous ENRoads image"
+                    >
+                        &#10094;
+                    </button>
+
+                    <div class="image-slider">
+
+                        <div
+                            class="project-slides"
+                            id="projectSlides0"
+                        >
+
+                            <div class="project-slide">
+                                <img
+                                    src="images/ENRoads_1.png"
+                                    alt="ENRoads project image 1"
+                                >
+                            </div>
+
+                            <div class="project-slide">
+                                <img
+                                    src="images/ENRoads_2.png"
+                                    alt="ENRoads project image 2"
+                                >
+                            </div>
+
+                            <div class="project-slide">
+                                <img
+                                    src="images/ENRoads_3.png"
+                                    alt="ENRoads project image 3"
+                                >
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <button
+                        class="image-next"
+                        onclick="nextProjectImage(0)"
+                        aria-label="Next ENRoads image"
+                    >
+                        &#10095;
+                    </button>
+
+                </div>
+
+                <div class="image-pagination-dots">
+
+                    <span
+                        class="image-dot active"
+                        onclick="showProjectImage(0, 0)"
+                    ></span>
+
+                    <span
+                        class="image-dot"
+                        onclick="showProjectImage(0, 1)"
+                    ></span>
+
+                    <span
+                        class="image-dot"
+                        onclick="showProjectImage(0, 2)"
+                    ></span>
+
+                </div>
+
+                <div class="project-counter">
+                    Image 1 of 3
+                </div>
+
+            </div>
+
+            <!-- PROJECT 2 -->
+
+            <div
+                class="project-slider"
+                id="project1"
+            >
+
+                <h3 class="project-title">
+                    EelTrace
+                </h3>
+
+                <p class="project-description">
+                    Trace Networks
+                </p>
+
+                <div class="image-slider-wrapper">
+
+                    <button
+                        class="image-prev"
+                        onclick="previousProjectImage(1)"
+                        aria-label="Previous EelTrace image"
+                    >
+                        &#10094;
+                    </button>
+
+                    <div class="image-slider">
+
+                        <div
+                            class="project-slides"
+                            id="projectSlides1"
+                        >
+
+                            <div class="project-slide">
+                                <img
+                                    src="images/EelTrace_1.png"
+                                    alt="EelTrace project image 1"
+                                >
+                            </div>
+
+                            <div class="project-slide">
+                                <img
+                                    src="images/EelTrace_2.png"
+                                    alt="EelTrace project image 2"
+                                >
+                            </div>
+
+                            <div class="project-slide">
+                                <img
+                                    src="images/EelTrace_3.png"
+                                    alt="EelTrace project image 3"
+                                >
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <button
+                        class="image-next"
+                        onclick="nextProjectImage(1)"
+                        aria-label="Next EelTrace image"
+                    >
+                        &#10095;
+                    </button>
+
+                </div>
+
+                <div class="image-pagination-dots">
+
+                    <span
+                        class="image-dot active"
+                        onclick="showProjectImage(1, 0)"
+                    ></span>
+
+                    <span
+                        class="image-dot"
+                        onclick="showProjectImage(1, 1)"
+                    ></span>
+
+                    <span
+                        class="image-dot"
+                        onclick="showProjectImage(1, 2)"
+                    ></span>
+
+                </div>
+
+                <div class="project-counter">
+                    Image 1 of 3
+                </div>
+
+            </div>
+
+            <!-- PROJECT 3 -->
+
+            <div
+                class="project-slider"
+                id="project2"
+            >
+
+                <h3 class="project-title">
+                    JapanDEM
+                </h3>
+
+                <p class="project-description">
+                    DEM &amp; Satellite Imagery
+                </p>
+
+                <div class="image-slider-wrapper">
+
+                    <button
+                        class="image-prev"
+                        onclick="previousProjectImage(2)"
+                        aria-label="Previous JapanDEM image"
+                    >
+                        &#10094;
+                    </button>
+
+                    <div class="image-slider">
+
+                        <div
+                            class="project-slides"
+                            id="projectSlides2"
+                        >
+
+                            <div class="project-slide">
+                                <img
+                                    src="images/JapanDEM_1.png"
+                                    alt="JapanDEM project image 1"
+                                >
+                            </div>
+
+                            <div class="project-slide">
+                                <img
+                                    src="images/JapanDEM_2.png"
+                                    alt="JapanDEM project image 2"
+                                >
+                            </div>
+
+                            <div class="project-slide">
+                                <img
+                                    src="images/JapanDEM_3.png"
+                                    alt="JapanDEM project image 3"
+                                >
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <button
+                        class="image-next"
+                        onclick="nextProjectImage(2)"
+                        aria-label="Next JapanDEM image"
+                    >
+                        &#10095;
+                    </button>
+
+                </div>
+
+                <div class="image-pagination-dots">
+
+                    <span
+                        class="image-dot active"
+                        onclick="showProjectImage(2, 0)"
+                    ></span>
+
+                    <span
+                        class="image-dot"
+                        onclick="showProjectImage(2, 1)"
+                    ></span>
+
+                    <span
+                        class="image-dot"
+                        onclick="showProjectImage(2, 2)"
+                    ></span>
+
+                </div>
+
+                <div class="project-counter">
+                    Image 1 of 3
+                </div>
+
+            </div>
+
+            <!-- PROJECT 4 -->
+
+            <div
+                class="project-slider"
+                id="project3"
+            >
+
+                <h3 class="project-title">
+                    Blueberry ModelBuilder
+                </h3>
+
+                <p class="project-description">
+                    Model Builder
+                </p>
+
+                <div class="image-slider-wrapper">
+
+                    <button
+                        class="image-prev"
+                        onclick="previousProjectImage(3)"
+                        aria-label="Previous Blueberry ModelBuilder image"
+                    >
+                        &#10094;
+                    </button>
+
+                    <div class="image-slider">
+
+                        <div
+                            class="project-slides"
+                            id="projectSlides3"
+                        >
+
+                            <div class="project-slide">
+                                <img
+                                    src="images/Blueberry_ModelBuilder_1.png"
+                                    alt="Blueberry ModelBuilder project image 1"
+                                >
+                            </div>
+
+                            <div class="project-slide">
+                                <img
+                                    src="images/Blueberry_ModelBuilder_2.png"
+                                    alt="Blueberry ModelBuilder project image 2"
+                                >
+                            </div>
+
+                            <div class="project-slide">
+                                <img
+                                    src="images/Blueberry_ModelBuilder_3.png"
+                                    alt="Blueberry ModelBuilder project image 3"
+                                >
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <button
+                        class="image-next"
+                        onclick="nextProjectImage(3)"
+                        aria-label="Next Blueberry ModelBuilder image"
+                    >
+                        &#10095;
+                    </button>
+
+                </div>
+
+                <div class="image-pagination-dots">
+
+                    <span
+                        class="image-dot active"
+                        onclick="showProjectImage(3, 0)"
+                    ></span>
+
+                    <span
+                        class="image-dot"
+                        onclick="showProjectImage(3, 1)"
+                    ></span>
+
+                    <span
+                        class="image-dot"
+                        onclick="showProjectImage(3, 2)"
+                    ></span>
+
+                </div>
+
+                <div class="project-counter">
+                    Image 1 of 3
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- =================================================
+         SKILLS WINDOW
+    ================================================= -->
+
+    <div
+        class="portfolio-window skills-window"
+        id="skillsWindow"
+    >
+
+        <div
+            class="window-header"
+            onmousedown="startDragging(event, this.parentElement)"
+            ontouchstart="startDragging(event, this.parentElement)"
+        >
+
+            <span>
+                Skills
+            </span>
+
+            <button
+                onclick="closeWindow('skillsWindow')"
+                aria-label="Close Skills window"
+            >
+                ×
+            </button>
+
+        </div>
+
+        <div class="window-content">
+
+            <div class="skills-grid">
+
+                <div class="skill-category">
+                    GIS &amp; Mapping
+                </div>
+
+                <div class="skill">
+                    <h3>GIS</h3>
+                    <p>
+                        Geographic Information
+                        Systems, spatial analysis,
+                        map creation, geographic
+                        data management, spatial
+                        problem-solving, and
+                        geographic data visualization.
+                    </p>
+                </div>
+
+                <div class="skill">
+                    <h3>Cartography</h3>
+                    <p>
+                        Designing clear and
+                        visually effective maps
+                        for communicating
+                        geographic information,
+                        including map layout,
+                        symbology, labeling,
+                        classification, and visual
+                        hierarchy.
+                    </p>
+                </div>
+
+                <div class="skill">
+                    <h3>Remote Sensing</h3>
+                    <p>
+                        Working with remotely
+                        sensed imagery, raster data,
+                        geographic datasets, and
+                        spatial information derived
+                        from Earth observation.
+                    </p>
+                </div>
+
+                <div class="skill">
+                    <h3>Web Mapping</h3>
+                    <p>
+                        Creating interactive web
+                        mapping experiences for
+                        presenting geographic
+                        information, including
+                        ArcGIS StoryMaps and
+                        interactive geographic
+                        content.
+                    </p>
+                </div>
+
+                <div class="skill">
+                    <h3>Multi-Criteria Suitability Analysis (MCDA)</h3>
+                    <p>
+                        Applying multi-criteria
+                        suitability analysis to
+                        evaluate geographic
+                        alternatives using both
+                        fuzzy and crisp approaches,
+                        including criteria
+                        standardization, weighting,
+                        overlay analysis, and
+                        suitability modeling.
+                    </p>
+                </div>
+
+                <div class="skill">
+                    <h3>Spatial Analysis</h3>
+                    <p>
+                        Spatial analysis, geographic
+                        data interpretation, raster
+                        analysis, vector analysis,
+                        spatial relationships,
+                        geoprocessing, and
+                        geographic problem-solving.
+                    </p>
+                </div>
+
+                <div class="skill-category">
+                    ESRI Training &amp; Certifications
+                </div>
+
+                <div class="skill">
+                    <h3>Displaying Raster Data in ArcGIS</h3>
+                    <p>
+                        ESRI training in displaying
+                        and working with raster data
+                        in ArcGIS, including raster
+                        visualization and interpretation.
+                    </p>
+                </div>
+
+                <div class="skill">
+                    <h3>Basics of Geographic Coordinate Systems</h3>
+                    <p>
+                        ESRI training covering the
+                        fundamentals of geographic
+                        coordinate systems and their
+                        role in accurately representing
+                        geographic information.
+                    </p>
+                </div>
+
+                <div class="skill">
+                    <h3>Using GIS to Solve Problems</h3>
+                    <p>
+                        ESRI training focused on using
+                        GIS concepts and spatial
+                        analysis to investigate and
+                        solve real-world geographic
+                        problems.
+                    </p>
+                </div>
+
+                <div class="skill-category">
+                    Programming &amp; Data Analysis
+                </div>
+
+                <div class="skill">
+                    <h3>Python</h3>
+                    <p>
+                        Using Python for data
+                        processing, automation,
+                        analysis, scripting, and
+                        geospatial workflows.
+                    </p>
+                </div>
+
+                <div class="skill">
+                    <h3>GeoPandas</h3>
+                    <p>
+                        Working with geospatial
+                        vector data in Python,
+                        including reading, managing,
+                        analyzing, transforming, and
+                        visualizing spatial datasets.
+                    </p>
+                </div>
+
+                <div class="skill">
+                    <h3>NumPy</h3>
+                    <p>
+                        Numerical computing and
+                        array-based data processing
+                        for analytical and geospatial
+                        workflows.
+                    </p>
+                </div>
+
+                <div class="skill">
+                    <h3>Matplotlib</h3>
+                    <p>
+                        Creating charts, plots,
+                        graphs, and data visualizations
+                        for communicating analytical
+                        results.
+                    </p>
+                </div>
+
+                <div class="skill">
+                    <h3>ArcPy</h3>
+                    <p>
+                        Python-based ArcGIS
+                        automation and geoprocessing,
+                        including scripting GIS
+                        workflows and automating
+                        spatial analysis tasks.
+                    </p>
+                </div>
+
+                <div class="skill">
+                    <h3>HTML / CSS / JavaScript</h3>
+                    <p>
+                        Building responsive websites
+                        and interactive interfaces
+                        for displaying maps,
+                        geographic information,
+                        and portfolio projects.
+                    </p>
+                </div>
+
+                <div class="skill-category">
+                    Tools &amp; Software
+                </div>
+
+                <div class="skill">
+                    <h3>ArcGIS Pro</h3>
+                    <p>
+                        Desktop GIS software for
+                        cartography, spatial analysis,
+                        geoprocessing, raster and
+                        vector workflows, and map
+                        production.
+                    </p>
+                </div>
+
+                <div class="skill">
+                    <h3>Jupyter Notebook</h3>
+                    <p>
+                        Interactive development and
+                        analysis environment for
+                        Python-based data science,
+                        geospatial analysis, coding,
+                        visualization, and documentation.
+                    </p>
+                </div>
+
+                <div class="skill">
+                    <h3>Google Earth Engine</h3>
+                    <p>
+                        Cloud-based geospatial
+                        analysis and Earth observation
+                        platform for working with
+                        large-scale satellite imagery
+                        and environmental datasets.
+                    </p>
+                </div>
+
+                <div class="skill">
+                    <h3>SAGA</h3>
+                    <p>
+                        Open-source geographic
+                        information system software
+                        for spatial analysis,
+                        terrain processing, raster
+                        analysis, and geospatial
+                        workflows.
+                    </p>
+                </div>
+
+                <div class="skill">
+                    <h3>PostgreSQL</h3>
+                    <p>
+                        Relational database management
+                        and organization of structured
+                        data, including support for
+                        managing geographic information
+                        in database workflows.
+                    </p>
+                </div>
+
+                <div class="skill">
+                    <h3>Excel / Google Sheets</h3>
+                    <p>
+                        Organizing, cleaning,
+                        analyzing, calculating, and
+                        presenting tabular data using
+                        spreadsheets and collaborative
+                        data-management tools.
+                    </p>
+                </div>
+
+                <div class="skill-category">
+                    First Aid &amp; Emergency Response
+                </div>
+
+                <div class="skill">
+                    <h3>Basic / Emergency First Aid</h3>
+                    <p>
+                        Basic and emergency first aid
+                        knowledge and skills for
+                        responding to common injuries
+                        and emergency situations.
+                    </p>
+                </div>
+
+                <div class="skill">
+                    <h3>CPR Level C / AED</h3>
+                    <p>
+                        CPR Level C and AED training
+                        for responding to cardiac
+                        emergencies and providing
+                        appropriate emergency
+                        assistance.
+                    </p>
+                </div>
+
+                <div class="skill-category">
+                    Leadership &amp; Club Co-President Skills
+                </div>
+
+                <div class="skill">
+                    <h3>Leadership</h3>
+                    <p>
+                        Collaborative leadership,
+                        decision-making, delegation,
+                        accountability, and supporting
+                        team members toward shared
+                        goals.
+                    </p>
+                </div>
+
+                <div class="skill">
+                    <h3>Teamwork &amp; Collaboration</h3>
+                    <p>
+                        Working effectively with
+                        executive teams, club members,
+                        students, faculty, and external
+                        partners while encouraging
+                        cooperation and participation.
+                    </p>
+                </div>
+
+                <div class="skill">
+                    <h3>Event Planning</h3>
+                    <p>
+                        Planning, organizing, and
+                        coordinating meetings,
+                        workshops, social events,
+                        educational activities, and
+                        club initiatives.
+                    </p>
+                </div>
+
+                <div class="skill">
+                    <h3>Communication</h3>
+                    <p>
+                        Professional written and verbal
+                        communication, public speaking,
+                        presentations, outreach,
+                        announcements, and communicating
+                        information clearly to diverse
+                        audiences.
+                    </p>
+                </div>
+
+                <div class="skill">
+                    <h3>Project Management</h3>
+                    <p>
+                        Organizing projects, setting
+                        priorities, coordinating
+                        responsibilities, tracking
+                        deadlines, and ensuring club
+                        initiatives are completed
+                        effectively.
+                    </p>
+                </div>
+
+                <div class="skill">
+                    <h3>Organization &amp; Time Management</h3>
+                    <p>
+                        Managing schedules, meetings,
+                        tasks, competing priorities,
+                        documentation, and deadlines
+                        while maintaining an organized
+                        workflow.
+                    </p>
+                </div>
+
+                <div class="skill">
+                    <h3>Conflict Resolution</h3>
+                    <p>
+                        Approaching disagreements
+                        constructively, listening to
+                        different perspectives, finding
+                        practical solutions, and
+                        maintaining positive team
+                        relationships.
+                    </p>
+                </div>
+
+                <div class="skill">
+                    <h3>Outreach &amp; Networking</h3>
+                    <p>
+                        Building relationships with
+                        students, organizations,
+                        professionals, faculty, and
+                        community members while
+                        promoting club activities
+                        and opportunities.
+                    </p>
+                </div>
+
+                <div class="skill">
+                    <h3>Public Speaking &amp; Presentation</h3>
+                    <p>
+                        Presenting information,
+                        introducing events, speaking
+                        to groups, facilitating
+                        discussions, and representing
+                        a club in a professional and
+                        approachable manner.
+                    </p>
+                </div>
+
+                <div class="skill">
+                    <h3>Problem-Solving &amp; Adaptability</h3>
+                    <p>
+                        Identifying challenges,
+                        evaluating possible solutions,
+                        adapting to changing
+                        circumstances, and responding
+                        effectively when plans or
+                        priorities change.
+                    </p>
+                </div>
+
+                <div class="skill">
+                    <h3>Mentoring &amp; Support</h3>
+                    <p>
+                        Supporting club members,
+                        encouraging participation,
+                        sharing knowledge, and helping
+                        create an inclusive and
+                        welcoming environment.
+                    </p>
+                </div>
+
+                <div class="skill">
+                    <h3>Professionalism</h3>
+                    <p>
+                        Demonstrating reliability,
+                        responsibility, respectful
+                        communication, initiative,
+                        accountability, and professional
+                        conduct when representing a
+                        student organization.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- =================================================
+         CONTACT WINDOW
+    ================================================= -->
+
+    <div
+        class="portfolio-window"
+        id="contactWindow"
+    >
+
+        <div
+            class="window-header"
+            onmousedown="startDragging(event, this.parentElement)"
+            ontouchstart="startDragging(event, this.parentElement)"
+        >
+
+            <span>
+                Contact
+            </span>
+
+            <button
+                onclick="closeWindow('contactWindow')"
+                aria-label="Close Contact window"
+            >
+                ×
+            </button>
+
+        </div>
+
+        <div class="window-content">
+
+            <div class="contact-item">
+
+                <strong>
+                    Email
+                </strong>
+
+                <a href="mailto:shaarby.s@gmail.com">
+                    shaarby.s@gmail.com
+                </a>
+
+            </div>
+
+            <div class="contact-item">
+
+                <strong>
+                    LinkedIn
+                </strong>
+
+                <a
+                    href="https://www.linkedin.com/in/shaarby-sivakumar-b6a351313/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Visit Shaarby Sivakumar on LinkedIn"
+                >
+                    https://www.linkedin.com/in/shaarby-sivakumar-b6a351313/
+                </a>
+
+            </div>
+
+            <div class="contact-item">
+
+                <strong>
+                    GitHub
+                </strong>
+
+                <a
+                    href="https://github.com/saji-ctrl"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Visit Shaarby Sivakumar on GitHub"
+                >
+                    https://github.com/saji-ctrl
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+    &copy; 2026 - All Rights Reserved |
+    Icon art created by: Shaarby Sajina Sivakumar
+</footer>
+
+<script>
+
+/* =====================================================
+   BUTTON ICONS
+===================================================== */
+
+const buttonIcons = {
+
+    aboutButton: {
+        first: "icons/about.png",
+        active: "icons/about_active.png"
+    },
+
+    mapButton: {
+        first: "icons/map.png",
+        active: "icons/map_active.png"
+    },
+
+    skillsButton: {
+        first: "icons/skills.png",
+        active: "icons/skills_active.png"
+    },
+
+    contactButton: {
+        first: "icons/closed_letter_icon.png",
+        active: "icons/open_letter_icon.png"
+    }
+
+};
+
+/* =====================================================
+   SET ACTIVE ICON
+===================================================== */
+
+function setButtonActive(button) {
+
+    if (!button) {
+        return;
+    }
+
+    const icon = button.querySelector(".button-icon");
+    const icons = buttonIcons[button.id];
+
+    if (!icon || !icons) {
+        return;
+    }
+
+    icon.src = icons.active;
+    button.classList.add("active");
+}
+
+/* =====================================================
+   RESET ICON
+===================================================== */
+
+function resetButton(button) {
+
+    if (!button) {
+        return;
+    }
+
+    const icon = button.querySelector(".button-icon");
+    const icons = buttonIcons[button.id];
+
+    if (!icon || !icons) {
+        return;
+    }
+
+    icon.src = icons.first;
+    button.classList.remove("active");
+}
+
+/* =====================================================
+   RESET ALL ICONS
+===================================================== */
+
+function resetAllButtons() {
+
+    document
+        .querySelectorAll(".nav-button")
+        .forEach(function(button) {
+            resetButton(button);
+        });
+
+}
+
+/* =====================================================
+   PROJECT DATA
+===================================================== */
+
+const totalProjects = 4;
+const totalProjectImages = 3;
+
+let currentProject = 0;
+
+const currentProjectImages = [
+    0,
+    0,
+    0,
+    0
+];
+
+/* =====================================================
+   SHOW PROJECT
+===================================================== */
+
+function showProject(projectNumber) {
+
+    if (
+        projectNumber < 0 ||
+        projectNumber >= totalProjects
+    ) {
+        return;
+    }
+
+    currentProject = projectNumber;
+
+    document
+        .querySelectorAll(".project-slider")
+        .forEach(function(project) {
+            project.classList.remove("active");
+        });
+
+    document
+        .querySelectorAll(".project-button")
+        .forEach(function(button) {
+            button.classList.remove("active");
+        });
+
+    const selectedProject =
+        document.getElementById(
+            "project" + projectNumber
+        );
+
+    const selectedButton =
+        document.getElementById(
+            "projectButton" + projectNumber
+        );
+
+    if (selectedProject) {
+        selectedProject.classList.add("active");
+    }
+
+    if (selectedButton) {
+        selectedButton.classList.add("active");
+    }
+
+    showProjectImage(
+        projectNumber,
+        currentProjectImages[projectNumber]
+    );
+}
+
+/* =====================================================
+   SHOW IMAGE
+===================================================== */
+
+function showProjectImage(
+    projectNumber,
+    imageNumber
+) {
+
+    if (
+        projectNumber < 0 ||
+        projectNumber >= totalProjects
+    ) {
+        return;
+    }
+
+    if (
+        imageNumber < 0 ||
+        imageNumber >= totalProjectImages
+    ) {
+        return;
+    }
+
+    currentProjectImages[projectNumber] =
+        imageNumber;
+
+    const slides =
+        document.getElementById(
+            "projectSlides" + projectNumber
+        );
+
+    if (!slides) {
+        return;
+    }
+
+    slides.style.transform =
+        "translateX(-" +
+        (imageNumber * 100) +
+        "%)";
+
+    const projectElement =
+        document.getElementById(
+            "project" + projectNumber
+        );
+
+    if (!projectElement) {
+        return;
+    }
+
+    const dots =
+        projectElement.querySelectorAll(
+            ".image-dot"
+        );
+
+    dots.forEach(function(dot) {
+        dot.classList.remove("active");
+    });
+
+    if (dots[imageNumber]) {
+        dots[imageNumber].classList.add("active");
+    }
+
+    const counter =
+        projectElement.querySelector(
+            ".project-counter"
+        );
+
+    if (counter) {
+        counter.textContent =
+            "Image " +
+            (imageNumber + 1) +
+            " of " +
+            totalProjectImages;
+    }
+}
+
+/* =====================================================
+   NEXT IMAGE
+===================================================== */
+
+function nextProjectImage(projectNumber) {
+
+    let nextImage =
+        currentProjectImages[projectNumber] + 1;
+
+    if (
+        nextImage >=
+        totalProjectImages
+    ) {
+        nextImage = 0;
+    }
+
+    showProjectImage(
+        projectNumber,
+        nextImage
+    );
+}
+
+/* =====================================================
+   PREVIOUS IMAGE
+===================================================== */
+
+function previousProjectImage(projectNumber) {
+
+    let previousImage =
+        currentProjectImages[projectNumber] - 1;
+
+    if (previousImage < 0) {
+        previousImage =
+            totalProjectImages - 1;
+    }
+
+    showProjectImage(
+        projectNumber,
+        previousImage
+    );
+}
+
+/* =====================================================
+   PROJECT KEYBOARD NAVIGATION
+===================================================== */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        const mapWindow =
+            document.getElementById(
+                "mapWindow"
+            );
+
+        if (
+            !mapWindow ||
+            !mapWindow.classList.contains("active")
+        ) {
+            return;
+        }
+
+        if (event.key === "ArrowRight") {
+            nextProjectImage(currentProject);
+        }
+
+        if (event.key === "ArrowLeft") {
+            previousProjectImage(currentProject);
+        }
+    }
+);
+
+/* =====================================================
+   OPEN WINDOW
+===================================================== */
+
+function openWindow(
+    windowID,
+    clickedButton
+) {
+
+    const overlay =
+        document.getElementById(
+            "windowOverlay"
+        );
+
+    document
+        .querySelectorAll(".portfolio-window")
+        .forEach(function(windowElement) {
+
+            windowElement.classList.remove(
+                "active"
+            );
+
+        });
+
+    resetAllButtons();
+
+    overlay.classList.add("active");
+
+    const selectedWindow =
+        document.getElementById(windowID);
+
+    selectedWindow.classList.add("active");
+
+    selectedWindow.style.left = "50%";
+
+    selectedWindow.style.top =
+        window.innerWidth <= 450
+            ? "80px"
+            : window.innerWidth <= 700
+                ? "100px"
+                : "120px";
+
+    selectedWindow.style.transform =
+        "translateX(-50%)";
+
+    setButtonActive(clickedButton);
+
+    document.body.style.overflow = "hidden";
+}
+
+/* =====================================================
+   CLOSE WINDOW
+===================================================== */
+
+function closeWindow(windowID) {
+
+    const overlay =
+        document.getElementById(
+            "windowOverlay"
+        );
+
+    const windowElement =
+        document.getElementById(
+            windowID
+        );
+
+    windowElement.classList.remove("active");
+    overlay.classList.remove("active");
+
+    resetAllButtons();
+
+    document.body.style.overflow = "";
+}
+
+/* =====================================================
+   CLOSE OUTSIDE
+===================================================== */
+
+function closeWindowOutside(event) {
+
+    const overlay =
+        document.getElementById(
+            "windowOverlay"
+        );
+
+    if (event.target === overlay) {
+
+        overlay.classList.remove("active");
+
+        document
+            .querySelectorAll(".portfolio-window")
+            .forEach(function(windowElement) {
+
+                windowElement.classList.remove(
+                    "active"
+                );
+
+            });
+
+        resetAllButtons();
+
+        document.body.style.overflow = "";
+    }
+}
+
+/* =====================================================
+   ESCAPE KEY
+===================================================== */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (event.key === "Escape") {
+
+            const overlay =
+                document.getElementById(
+                    "windowOverlay"
+                );
+
+            overlay.classList.remove("active");
+
+            document
+                .querySelectorAll(".portfolio-window")
+                .forEach(function(windowElement) {
+
+                    windowElement.classList.remove(
+                        "active"
+                    );
+
+                });
+
+            resetAllButtons();
+
+            document.body.style.overflow = "";
+        }
+    }
+);
+
+/* =====================================================
+   DRAGGABLE WINDOWS
+===================================================== */
+
+let draggedWindow = null;
+let dragOffsetX = 0;
+let dragOffsetY = 0;
+
+function startDragging(
+    event,
+    windowElement
+) {
+
+    if (
+        event.target.tagName ===
+        "BUTTON"
+    ) {
+        return;
+    }
+
+    draggedWindow = windowElement;
+
+    const rect =
+        draggedWindow.getBoundingClientRect();
+
+    const point =
+        event.touches
+            ? event.touches[0]
+            : event;
+
+    dragOffsetX =
+        point.clientX - rect.left;
+
+    dragOffsetY =
+        point.clientY - rect.top;
+
+    draggedWindow.style.transform =
+        "none";
+
+    draggedWindow.style.left =
+        rect.left + "px";
+
+    draggedWindow.style.top =
+        rect.top + "px";
+
+    event.preventDefault();
+}
+
+/* =====================================================
+   DRAG WITH MOUSE
+===================================================== */
+
+document.addEventListener(
+    "mousemove",
+    function(event) {
+
+        if (!draggedWindow) {
+            return;
+        }
+
+        moveWindow(
+            event.clientX,
+            event.clientY
+        );
+    }
+);
+
+/* =====================================================
+   DRAG WITH TOUCH
+===================================================== */
+
+document.addEventListener(
+    "touchmove",
+    function(event) {
+
+        if (!draggedWindow) {
+            return;
+        }
+
+        const touch =
+            event.touches[0];
+
+        moveWindow(
+            touch.clientX,
+            touch.clientY
+        );
+
+        event.preventDefault();
+
+    },
+    {
+        passive: false
+    }
+);
+
+/* =====================================================
+   MOVE WINDOW
+===================================================== */
+
+function moveWindow(
+    clientX,
+    clientY
+) {
+
+    if (!draggedWindow) {
+        return;
+    }
+
+    let newLeft =
+        clientX - dragOffsetX;
+
+    let newTop =
+        clientY - dragOffsetY;
+
+    const rect =
+        draggedWindow.getBoundingClientRect();
+
+    const maxLeft =
+        window.innerWidth - rect.width;
+
+    const maxTop =
+        window.innerHeight - rect.height;
+
+    newLeft =
+        Math.max(
+            0,
+            Math.min(
+                newLeft,
+                maxLeft
+            )
+        );
+
+    newTop =
+        Math.max(
+            0,
+            Math.min(
+                newTop,
+                maxTop
+            )
+        );
+
+    draggedWindow.style.left =
+        newLeft + "px";
+
+    draggedWindow.style.top =
+        newTop + "px";
+}
+
+/* =====================================================
+   STOP DRAGGING
+===================================================== */
+
+document.addEventListener(
+    "mouseup",
+    function() {
+        draggedWindow = null;
+    }
+);
+
+document.addEventListener(
+    "touchend",
+    function() {
+        draggedWindow = null;
+    }
+);
+
+/* =====================================================
+   DARK / LIGHT MODE
+===================================================== */
+
+function toggleDarkMode() {
+
+    const body =
+        document.body;
+
+    const themeIcon =
+        document.getElementById(
+            "themeIcon"
+        );
+
+    body.classList.toggle(
+        "dark-mode"
+    );
+
+    if (
+        body.classList.contains(
+            "dark-mode"
+        )
+    ) {
+
+        themeIcon.src =
+            "icons/day_icon.png";
+
+        themeIcon.alt =
+            "Switch to light mode";
+
+        localStorage.setItem(
+            "darkMode",
+            "enabled"
+        );
+
+    } else {
+
+        themeIcon.src =
+            "icons/night_icon.png";
+
+        themeIcon.alt =
+            "Switch to dark mode";
+
+        localStorage.setItem(
+            "darkMode",
+            "disabled"
+        );
+    }
+}
+
+/* =====================================================
+   REMEMBER DARK MODE
+===================================================== */
+
+window.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        const darkMode =
+            localStorage.getItem(
+                "darkMode"
+            );
+
+        const themeIcon =
+            document.getElementById(
+                "themeIcon"
+            );
+
+        if (
+            darkMode === "enabled"
+        ) {
+
+            document.body.classList.add(
+                "dark-mode"
+            );
+
+            themeIcon.src =
+                "icons/day_icon.png";
+
+            themeIcon.alt =
+                "Switch to light mode";
+
+        } else {
+
+            themeIcon.src =
+                "icons/night_icon.png";
+
+            themeIcon.alt =
+                "Switch to dark mode";
+        }
+
+        for (
+            let project = 0;
+            project < totalProjects;
+            project++
+        ) {
+
+            showProjectImage(
+                project,
+                0
+            );
+        }
+    }
+);
+
+</script>
+
+</body>
+</html>
